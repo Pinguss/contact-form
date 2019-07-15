@@ -59,8 +59,5 @@ mb_internal_encoding("UTF-8");
             
             <input type="submit" value="Odeslat" />
         </form>
-        <?php
-        // put your code here
-        ?>
     </body>
 </html>
