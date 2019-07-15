@@ -3,7 +3,7 @@
 mb_internal_encoding("UTF-8");
 
     $hlaska = '';
-    if ($_POST) // V poli _POST něco je, odeslal se formulář
+    if ($_POST)
     {
         if (isset($_POST['jmeno']) && $_POST['jmeno'] &&
 			isset($_POST['email']) && $_POST['email'] &&
@@ -29,11 +29,7 @@ mb_internal_encoding("UTF-8");
     ?>
 
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
