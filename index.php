@@ -1,32 +1,32 @@
-        <?php
-        mb_internal_encoding("UTF-8");
-         $hlaska = '';
-         
-        if($_POST) 
+       <?php   
+
+mb_internal_encoding("UTF-8");
+
+    $hlaska = '';
+    if ($_POST) // V poli _POST něco je, odeslal se formulář
+    {
+        if (isset($_POST['jmeno']) && $_POST['jmeno'] &&
+			isset($_POST['email']) && $_POST['email'] &&
+			isset($_POST['message']) && $_POST['message'] &&
+			isset($_POST['antispam']) && $_POST['antispam'] == date('Y'))
         {
-            
-          if(isset($_POST['jmeno']) && $_POST['jmeno'] && 
-            isset($_POST['email']) && $_POST['email'] && 
-            isset($_POST['message']) && $_POST['message'] && 
-            isset($_POST['antispam']) && $_POST['antispam'] == date('Y'))
+            $hlavicka = 'From:' . $_POST['email'];
+            $hlavicka .= "\nMIME-Version: 1.0\n";
+            $hlavicka .= "Content-Type: text/html; charset=\"utf-8\"\n";
+            $adresa = 'vas@email.cz';
+            $predmet = 'Nová zpráva z mailformu';
+            $uspech = mb_send_mail($adresa, $predmet, $_POST['message'], $hlavicka);
+            if ($uspech)
             {
-                $hlavicka = 'From:' . $_POST['email'];
-                $hlavicka .= "\nMIME-Version: 1.0\n";
-                $hlavicka .= "Content-Type: text/html; charset=\"utf-8\"\n";
-                $adresa = 'janope@seznam.cz';
-                $predmet = 'Nová zpráva z mailformu';
-                $uspech = mb_send_mail($adresa, $predmet, $_POST['zprava'], $hlavicka);
-if ($uspech)
-{
-        $hlaska = 'Email byl úspěšně odeslán, brzy vám odpovíme.';
-}
-else
-        $hlaska = 'Email se nepodařilo odeslat. Zkontrolujte adresu.';
+                $hlaska = 'Email byl úspěšně odeslán, brzy vám odpovíme.';
             }
-          else
-                $hlaska = 'Formulář není správně vyplněn!';
+            else
+                $hlaska = 'Email se nepodařilo odeslat. Zkontrolujte adresu.';
         }
-        ?>
+        else 
+            $hlaska = 'Formulář není správně vyplněný!';
+    }
+    ?>
 
 <!DOCTYPE html>
 <!--
@@ -42,10 +42,12 @@ and open the template in the editor.
     <body>
         
         <h1>Kontaktní formulář</h1>
-        <?php
-        if ($hlaska)
+        
+                <?php 
+            if ($hlaska)
                 echo('<p>' . $hlaska . '</p>');
-?>
+        ?>  
+        
         <form method="POST">
             <label for="jmeno">Vaše jméno:</label>
             <p><input id="jmeno" name="jmeno" type="text" /></p>
@@ -61,6 +63,8 @@ and open the template in the editor.
             
             <input type="submit" value="Odeslat" />
         </form>
-
+        <?php
+        // put your code here
+        ?>
     </body>
 </html>
